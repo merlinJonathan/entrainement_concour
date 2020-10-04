@@ -41,7 +41,7 @@ public class OutputTest {
 		output.addInstruction(new InstructionPickUp(bike1, truck0));
 		output.addInstruction(new InstructionDrive(truck0, new Coordonnees(3, 6)));
 		output.addInstruction(new InstructionStep());
-		output.addInstruction(new InstructionDrop(bike0));
+		output.addInstruction(new InstructionDrop(bike0, truck0));
 		output.addInstruction(new InstructionRent(bike0_1, rental3));
 		
 		assertEquals(26, output.getScore());

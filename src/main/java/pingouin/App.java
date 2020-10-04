@@ -7,7 +7,6 @@ import java.util.List;
 import pingouin.enums.StrategyEnums;
 import pingouin.models.City;
 import pingouin.models.Output;
-import pingouin.services.CityService;
 import pingouin.services.FileService;
 
 public class App {
@@ -32,7 +31,7 @@ public class App {
 		
 		switch(strategy) {
 			case BASE: {
-				output = CityService.start(city);
+				output = city.start();
 				break;
 			}
 			default: {

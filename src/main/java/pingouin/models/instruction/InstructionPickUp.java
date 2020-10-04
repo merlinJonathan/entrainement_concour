@@ -14,8 +14,38 @@ public class InstructionPickUp extends Instruction {
 		this.truck = truck;
 	}
 
+	public static boolean isPossible(Bike bike, Truck truck) {
+		if(bike == null || truck == null) {
+			return false;
+		}
+		
+		if(!bike.isAvailable()) {
+			return false;
+		}
+		
+		if(!truck.isAvailable()) {
+			return false;
+		}
+		
+		if(bike.getPosition().distanceTo(truck.getPosition()) != 0) {
+			return false;
+		}
+		
+		if(Truck.getMaxCapacity() >= truck.getBikesOnTruck().size()) {
+			return false;
+		}
+		
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return this.getInstruction() + " " + bike + " " + truck;
+	}
+
+	@Override
+	public void apply() {
+		truck.getBikesOnTruck().add(bike);
+		this.estTermine = true;
 	}
 }

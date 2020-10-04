@@ -4,7 +4,8 @@ import pingouin.enums.InstructionEnums;
 
 public abstract class Instruction {
 	private InstructionEnums instruction;
-
+	protected boolean estTermine = false;
+	
 	public Instruction(InstructionEnums instruction) {
 		super();
 		this.instruction = instruction;
@@ -19,4 +20,6 @@ public abstract class Instruction {
 	}
 	
 	public abstract String toString();
+	
+	public abstract void apply();
 }

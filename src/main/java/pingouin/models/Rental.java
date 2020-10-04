@@ -77,6 +77,10 @@ public class Rental {
 		return positionClient;
 	}
 
+	public void setPositionClient(Coordonnees positionClient) {
+		this.positionClient = positionClient;
+	}
+
 	public int getId() {
 		return id;
 	}

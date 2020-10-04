@@ -6,7 +6,6 @@ import java.util.List;
 public class Truck extends Vehicule{
 	private static int compteurID = 0;
 	private static int maxCapacity;
-	private Coordonnees destination;
 	private List<Bike> bikesOnTruck = new ArrayList<>();
 	
 	public Truck(Coordonnees position) {
@@ -25,14 +24,6 @@ public class Truck extends Vehicule{
 
 	public boolean isAvailable() {
 		return destination != null;
-	}
-
-	public Coordonnees getDestination() {
-		return destination;
-	}
-
-	public void setDestination(Coordonnees destination) {
-		this.destination = destination;
 	}
 
 	public List<Bike> getBikesOnTruck() {

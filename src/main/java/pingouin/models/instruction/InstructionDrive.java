@@ -14,8 +14,31 @@ public class InstructionDrive extends Instruction {
 		this.destination = destination;
 	}
 
+	public static boolean isPossible(Truck truck) {
+		if(truck == null) {
+			return false;
+		}
+		
+		if(!truck.isAvailable()) {
+			return false;
+		}
+		
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return this.getInstruction() + " " + truck + " " + destination.getX() + " " + destination.getY();
+	}
+	
+	@Override
+	public void apply() {
+		truck.setDestination(this.destination);
+		truck.deplacer();
+		
+		if(truck.getDistanceToDestination() == 0) {
+			this.estTermine = true;
+			truck.setDestination(null);
+		}
 	}
 }
