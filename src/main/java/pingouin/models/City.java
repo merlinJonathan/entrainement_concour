@@ -2,7 +2,9 @@ package pingouin.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import pingouin.models.instruction.Instruction;
 import pingouin.models.instruction.InstructionDrive;
 import pingouin.models.instruction.InstructionDrop;
 import pingouin.models.instruction.InstructionPickUp;
@@ -15,6 +17,7 @@ public class City {
 	private List<Rental> rentals = new ArrayList<>();
 	
 	private int clock = 0;
+	private static int score = 0;
 	
 	public City() {}
 	
@@ -47,8 +50,7 @@ public class City {
 		//placementInitialBike(output, city.getBikes());
 		//placementInitialTruck(output, city.getTrucks());
 
-
-		output.addCoordonneesBike(0, 3);
+		/*output.addCoordonneesBike(0, 3);
 		this.bikes.get(0).setPosition(new Coordonnees(0, 3));
 		output.addCoordonneesBike(4, 2);
 		this.bikes.get(1).setPosition(new Coordonnees(4, 2));
@@ -64,10 +66,51 @@ public class City {
 		output.addInstruction(new InstructionDrive(this.trucks.get(0), new Coordonnees(3,  6)));
 		output.addInstruction(new InstructionStep());
 		output.addInstruction(new InstructionDrop(this.bikes.get(0), this.trucks.get(0)));
-		output.addInstruction(new InstructionRent(this.bikes.get(0), this.rentals.get(3)));
+		output.addInstruction(new InstructionRent(this.bikes.get(0), this.rentals.get(3)));*/
+
+		output.addCoordonneesBike(0, 3);
+		this.bikes.get(0).setPosition(new Coordonnees(0, 3));
+		output.addCoordonneesBike(4, 2);
+		this.bikes.get(1).setPosition(new Coordonnees(4, 2));
+		output.addCoordonneesTruck(3, 4);
+		this.trucks.get(0).setPosition(new Coordonnees(3, 4));
+		
+		
+		while(rentals.size() > 0 || output.getAllInstructionsEnCours().size() > 0) {
+			if(clock == 0) {
+				output.addInstruction(new InstructionRent(this.bikes.get(0), this.rentals.get(1)));
+				output.addInstruction(new InstructionRent(this.bikes.get(1), this.rentals.get(0)));
+			}
+			
+			if(clock == 2) {
+				output.addInstruction(new InstructionPickUp(this.bikes.get(0), this.trucks.get(0)));
+				output.addInstruction(new InstructionPickUp(this.bikes.get(1), this.trucks.get(0)));
+				output.addInstruction(new InstructionDrive(this.trucks.get(0), new Coordonnees(3,  6)));
+			}
+			
+			if(clock == 3) {
+				output.addInstruction(new InstructionDrop(this.bikes.get(0), this.trucks.get(0)));
+				output.addInstruction(new InstructionRent(this.bikes.get(0), this.rentals.get(0)));
+			}
+			
+			// on retire les rental expiré
+			this.rentals = this.rentals.stream().filter(rental -> rental.getTourDepart() > clock).collect(Collectors.toList());
+			if(this.rentals.size() > 0) {
+				output.addInstruction(new InstructionStep());
+			}
+			clock++;
+			
+			for(Instruction instruction : output.getAllInstructionsEnCours()) {
+				instruction.apply();
+			}
+		}
 		
 		return output;
 	}
+    
+    public static void addScore(int scoreAAjoute) {
+    	score += scoreAAjoute;
+    }
     
     
     /** ============================================ PRIVATE ============================================== **/
@@ -96,5 +139,9 @@ public class City {
 
 	public List<Rental> getRentals() {
 		return rentals;
+	}
+
+	public static int getScore() {
+		return score;
 	}
 }

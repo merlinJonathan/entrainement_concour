@@ -12,6 +12,7 @@ public class InstructionDrop extends Instruction {
 	public InstructionDrop(Bike bike, Truck truck) {
 		super(InstructionEnums.DROP);
 		this.bike = bike;
+		this.truck = truck;
 	}
 
 	@Override

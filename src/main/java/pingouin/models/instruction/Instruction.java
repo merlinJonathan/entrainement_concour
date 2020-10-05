@@ -19,7 +19,15 @@ public abstract class Instruction {
 		this.instruction = instruction;
 	}
 	
+	public boolean isEstTermine() {
+		return estTermine;
+	}
+
+	public void setEstTermine(boolean estTermine) {
+		this.estTermine = estTermine;
+	}
+
 	public abstract String toString();
-	
+
 	public abstract void apply();
 }

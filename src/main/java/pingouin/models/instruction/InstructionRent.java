@@ -2,11 +2,13 @@ package pingouin.models.instruction;
 
 import pingouin.enums.InstructionEnums;
 import pingouin.models.Bike;
+import pingouin.models.City;
 import pingouin.models.Rental;
 
 public class InstructionRent extends Instruction {
 	private Bike bike;
 	private Rental rental;
+	private int distanceParcouru = 0;
 	
 	public InstructionRent(Bike bike, Rental rental) {
 		super(InstructionEnums.RENT);
@@ -64,6 +66,10 @@ public class InstructionRent extends Instruction {
 		rental.setAvailable(false);
 		bike.setDestination(rental.getDestination());
 		
+		if(distanceParcouru == 0) {
+			distanceParcouru = bike.getDistanceToDestination();
+		}
+		
 		if(bike.getPosition().distanceTo(rental.getPositionClient()) != 0) {
 			this.deplacementClient();
 		} else {
@@ -74,6 +80,7 @@ public class InstructionRent extends Instruction {
 		if(bike.getPosition().distanceTo(rental.getDestination()) == 0) {
 			bike.setDestination(null);
 			this.estTermine = true;
+			City.addScore(Rental.getPrixBase() + distanceParcouru);
 		}
 	}
 	

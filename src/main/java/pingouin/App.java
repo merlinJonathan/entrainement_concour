@@ -25,6 +25,15 @@ public class App {
 	
 	public final static StrategyEnums strategy = StrategyEnums.BASE;
 	
+	
+	
+	
+	
+	// revoir la fonction de score pour quelle se fasse au fur et a mesure dans les fonction apply au lieu d'etre calculé a la fin
+	
+	
+	
+	
 	public static void main(String[] args) throws IOException {
 		City city = FileService.initData(INPUT_FILES.get(0));
 		Output output = null;
@@ -39,6 +48,6 @@ public class App {
 			}
 		}
 		output.generateFile("./src/main/resources/result.txt");
-		System.out.println("Score => " + output.getScore());
+		System.out.println("Score => " + City.getScore());
 	}
 }

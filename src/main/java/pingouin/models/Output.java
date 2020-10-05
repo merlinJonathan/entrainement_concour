@@ -115,4 +115,8 @@ public class Output {
 		
 		return score;
 	}
+	
+	public List<Instruction> getAllInstructionsEnCours() {
+		return instructions.stream().filter(instruction -> instruction.isEstTermine() == false).collect(Collectors.toList());
+	}
 }
