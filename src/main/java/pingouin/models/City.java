@@ -77,21 +77,7 @@ public class City {
 		
 		
 		while(rentals.size() > 0 || output.getAllInstructionsEnCours().size() > 0) {
-			if(clock == 0) {
-				output.addInstruction(new InstructionRent(this.bikes.get(0), this.rentals.get(1)));
-				output.addInstruction(new InstructionRent(this.bikes.get(1), this.rentals.get(0)));
-			}
 			
-			if(clock == 2) {
-				output.addInstruction(new InstructionPickUp(this.bikes.get(0), this.trucks.get(0)));
-				output.addInstruction(new InstructionPickUp(this.bikes.get(1), this.trucks.get(0)));
-				output.addInstruction(new InstructionDrive(this.trucks.get(0), new Coordonnees(3,  6)));
-			}
-			
-			if(clock == 3) {
-				output.addInstruction(new InstructionDrop(this.bikes.get(0), this.trucks.get(0)));
-				output.addInstruction(new InstructionRent(this.bikes.get(0), this.rentals.get(0)));
-			}
 			
 			// on retire les rental expiré
 			this.rentals = this.rentals.stream().filter(rental -> rental.getTourDepart() > clock).collect(Collectors.toList());
@@ -125,6 +111,10 @@ public class City {
 		for(Truck truck: this.trucks) {
 			output.addCoordonneesTruck(0, 0);
 		}
+	}
+	
+	private void finDeTour() {
+		
 	}
 	
 	/** ============================================= Getter & Setter ======================================= **/
